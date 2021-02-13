@@ -1,0 +1,29 @@
+html {
+  color: #fff;
+  font-size: 21px;
+  background-color: #393d4b;
+}
+body {
+  padding: 32px;
+}
+h1 {
+  color: #ff9696;
+}
+label {
+  cursor: pointer;
+}
+hr {
+  opacity: 0.2;
+}
+ul {
+  padding-left: 0;
+}
+li {
+  margin: 12px 0;
+  font-size: 21px;
+  list-style: none;
+}
+button {
+  padding: 0.5em 1em;
+  font-size: 16px;
+}
