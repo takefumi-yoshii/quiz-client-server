@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "ts-node server/index",
+    "dev": "npm run dev:client & npm run dev:server",
     "dev:client": "parcel client/index.html -d ./public",
     "dev:server": "ts-node server/index"
   },
