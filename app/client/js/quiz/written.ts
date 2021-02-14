@@ -1,5 +1,5 @@
-import type { WrittenQuiz, ResultResponse } from "../../types";
-import { postAnswer } from "./fetchers";
+import type { WrittenQuiz, ResultResponse } from "../../../types";
+import { postAnswer } from "../fetchers";
 // ______________________________________________________
 //
 export function setQuiz(data: WrittenQuiz) {

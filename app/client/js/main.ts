@@ -1,7 +1,7 @@
 import type { Quiz, QuizType, ResultResponse } from "../../types";
-import * as alternative from "./alternative";
-import * as multiple from "./multiple";
-import * as written from "./written";
+import * as alternative from "./quiz/alternative";
+import * as multiple from "./quiz/multiple";
+import * as written from "./quiz/written";
 import { fetchQuiz } from "./fetchers";
 // ______________________________________________________
 //

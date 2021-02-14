@@ -1,16 +1,16 @@
-import type { MultipleQuiz, ResultResponse } from "../../types";
-import { postAnswer } from "./fetchers";
+import type { AlternativeQuiz, ResultResponse } from "../../../types";
+import { postAnswer } from "../fetchers";
 // ______________________________________________________
 //
-export function setQuiz(data: MultipleQuiz) {
-  document.getElementById("quiz")!.innerHTML = `${data.quiz_body}（複数回答）`;
+export function setQuiz(data: AlternativeQuiz) {
+  document.getElementById("quiz")!.innerHTML = `${data.quiz_body}（択一回答）`;
   document.getElementById("choices")!.innerHTML = data.quiz_choices
     .map(
       (choice) =>
         `<li>
           <input
-            type="checkbox"
-            name="quiz-${choice.value}"
+            type="radio"
+            name="quiz"
             id="quiz-${choice.value}"
             value="${choice.value}"
           />
@@ -21,27 +21,26 @@ export function setQuiz(data: MultipleQuiz) {
 }
 // ______________________________________________________
 //
-function getInputAnswers() {
+function getInputAnswer() {
   const arr = Array.from(document.forms[0].elements) as HTMLFormElement[];
   return [...arr]
     .map((elm) => ({
       value: elm.value as string,
       checked: elm.checked as boolean,
     }))
-    .filter((elm) => elm.checked)
-    .map((elm) => Number(elm.value));
+    .find((elm) => elm.checked);
 }
 // ______________________________________________________
 //
 export async function checkAnswer(
   currentQuizId: string
 ): Promise<ResultResponse> {
-  const answers = getInputAnswers();
-  if (!answers.length) {
+  const answer = getInputAnswer();
+  if (!answer) {
     return { result: false, error: "選択してください" };
   }
   try {
-    return postAnswer(answers, currentQuizId);
+    return postAnswer(Number(answer.value), currentQuizId);
   } catch {
     return { result: false, error: "エラーが発生しました" };
   }
