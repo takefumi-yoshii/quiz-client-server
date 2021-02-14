@@ -21,7 +21,7 @@ app.get("/api/quiz", (req, res) => {
 });
 
 app.post("/api/answer", (req, res) => {
-  if (!req.body || !req.body.quiz_id || !req.body.answer) {
+  if (!req.body || !req.body.quiz_id || req.body.answer === undefined) {
     res.status(400);
     res.send({ error: "不正なリクエストです" });
     return;

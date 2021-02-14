@@ -1,19 +1,9 @@
-import type { QuizType, ResultResponse } from "../../types";
+import type { Quiz, QuizType, ResultResponse } from "../../types";
+import * as alternative from "./alternative";
+import * as multiple from "./multiple";
+import * as written from "./written";
 import { fetchQuiz } from "./fetchers";
-import {
-  setScore,
-  setAlternativeQuiz,
-  setMultipleQuiz,
-  setWrittenQuiz,
-} from "./domSetters";
-import {
-  checkAlternativeQuiz,
-  checkMultipleQuiz,
-  checkWrittenQuiz,
-} from "./postAnswer";
 // ______________________________________________________
-//
-// State
 //
 let currentQuizId: string | null = null;
 let currentQuizType: QuizType | null = null;
@@ -21,26 +11,33 @@ let tryCount = 0;
 let correctCount = 0;
 // ______________________________________________________
 //
-// Get Quiz
-//
+function setQuiz(quiz: Quiz) {
+  currentQuizId = quiz.id;
+  currentQuizType = quiz.type;
+  switch (quiz.type) {
+    case "alternative":
+      return alternative.setQuiz(quiz);
+    case "multiple":
+      return multiple.setQuiz(quiz);
+    case "written":
+      return written.setQuiz(quiz);
+  }
+}
 async function getQuiz() {
   const data = await fetchQuiz();
   if (data.error) return alert(data.error);
-  if (!data.quiz) return alert("エラーが発生しました");
-  currentQuizId = data.quiz.id;
-  currentQuizType = data.quiz.type;
-  switch (data.quiz.type) {
-    case "alternative":
-      return setAlternativeQuiz(data.quiz);
-    case "multiple":
-      return setMultipleQuiz(data.quiz);
-    case "written":
-      return setWrittenQuiz(data.quiz);
-  }
+  if (!data.quiz) return alert("クイズが取得できませんでした");
+  setQuiz(data.quiz);
 }
 // ______________________________________________________
 //
-function handleCheck(res: ResultResponse) {
+function setScore(tryCount: number, correctCount: number) {
+  document.getElementById("tryCount")!.innerHTML = `${tryCount}`;
+  document.getElementById("correctCount")!.innerHTML = `${correctCount}`;
+}
+// ______________________________________________________
+//
+function handleCheckResponse(res: ResultResponse) {
   if (res.error) {
     return alert(res.error);
   }
@@ -51,22 +48,24 @@ function handleCheck(res: ResultResponse) {
   setScore(tryCount, correctCount);
   alert(res.result ? "正解！" : "不正解…");
 }
-async function handleSubmit(event: Event) {
+// ______________________________________________________
+//
+async function checkAnswer(event: Event) {
   event.preventDefault();
   if (currentQuizId === null) {
     return alert("クイズを取得してください");
   }
   switch (currentQuizType) {
     case "alternative":
-      return handleCheck(await checkAlternativeQuiz(currentQuizId));
+      return handleCheckResponse(await alternative.checkAnswer(currentQuizId));
     case "multiple":
-      return handleCheck(await checkMultipleQuiz(currentQuizId));
+      return handleCheckResponse(await multiple.checkAnswer(currentQuizId));
     case "written":
-      return handleCheck(await checkWrittenQuiz(currentQuizId));
+      return handleCheckResponse(await written.checkAnswer(currentQuizId));
   }
 }
 // ______________________________________________________
 //
 document.getElementById("btn")!.addEventListener("click", getQuiz);
-document.getElementById("form")!.addEventListener("submit", handleSubmit);
+document.getElementById("form")!.addEventListener("submit", checkAnswer);
 setScore(tryCount, correctCount);
