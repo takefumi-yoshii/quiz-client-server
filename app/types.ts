@@ -2,6 +2,7 @@ export type QuizType = "alternative" | "multiple" | "written";
 export type Choice = { value: number; text: string };
 export type ResultResponse = { result: boolean; error?: string };
 export type QuizResponse = { quiz?: Quiz; error?: string };
+
 export type AlternativeQuiz = {
   id: string;
   type: "alternative";

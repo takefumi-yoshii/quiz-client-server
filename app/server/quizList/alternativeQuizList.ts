@@ -49,4 +49,25 @@ export const alternativeQuizList: AlternativeQuiz[] = [
     ],
     answer_value: 3,
   },
+  {
+    id: "0002",
+    type: "alternative",
+    quiz_body:
+      "function fn(val, digit = 'px') {}` という関数引数に型注釈を付与したい。第二引数の型注釈は何を付与するべきか？",
+    quiz_choices: [
+      {
+        value: 0,
+        text: "string 型注釈を付与する",
+      },
+      {
+        value: 1,
+        text: "'px' 型注釈を付与する",
+      },
+      {
+        value: 2,
+        text: "必ずしも型注釈を付与する必要はない",
+      },
+    ],
+    answer_value: 2,
+  },
 ];

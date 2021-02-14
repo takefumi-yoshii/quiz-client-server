@@ -1,8 +1,10 @@
 {
+  "private": true,
   "scripts": {
     "dev": "npm run dev:client & npm run dev:server",
     "dev:client": "parcel client/index.html -d ./public",
-    "dev:server": "ts-node server/index"
+    "dev:server": "ts-node server/index",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "ejs": "^3.1.6",
