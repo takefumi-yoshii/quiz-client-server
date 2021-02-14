@@ -11,7 +11,7 @@ export function checkAnswer(quiz: Quiz, answer: Answer) {
       if (!Array.isArray(answer) || typeof answer[0] !== "number") {
         throw new Error("400");
       }
-      return answer.toString() === quiz.quiz_choices.toString();
+      return answer.toString() === quiz.answer_values.toString();
     case "written":
       if (typeof answer !== "string") {
         throw new Error("400");

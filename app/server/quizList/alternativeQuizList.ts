@@ -1,8 +1,8 @@
-import type { Quiz } from "../types";
+import type { AlternativeQuiz } from "../../types";
 
-export const quizList: Quiz[] = [
+export const alternativeQuizList: AlternativeQuiz[] = [
   {
-    id: "000",
+    id: "0000",
     type: "alternative",
     quiz_body: "次のうち、プリミティブ型ではないものはどれか？",
     quiz_choices: [
@@ -12,21 +12,21 @@ export const quizList: Quiz[] = [
       },
       {
         value: 1,
-        text: "undefined 型",
+        text: "void 型",
       },
       {
         value: 2,
-        text: "null 型",
+        text: "undefined 型",
       },
       {
         value: 3,
-        text: "function 型",
+        text: "null 型",
       },
     ],
-    answer_value: 2,
+    answer_value: 1,
   },
   {
-    id: "001",
+    id: "0001",
     type: "alternative",
     quiz_body: "次のうち、リテラル型として推論されないものはどれか？",
     quiz_choices: [

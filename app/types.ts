@@ -1,7 +1,8 @@
-export type QuestionType = "alternative" | "multiple" | "written";
+export type QuizType = "alternative" | "multiple" | "written";
 export type Choice = { value: number; text: string };
-
-export type AlternativeQuestion = {
+export type ResultResponse = { result: boolean; error?: string };
+export type QuizResponse = { quiz?: Quiz; error?: string };
+export type AlternativeQuiz = {
   id: string;
   type: "alternative";
   quiz_body: string;
@@ -9,7 +10,7 @@ export type AlternativeQuestion = {
   answer_value: number;
 };
 
-export type MultipleQuestion = {
+export type MultipleQuiz = {
   id: string;
   type: "multiple";
   quiz_body: string;
@@ -17,12 +18,12 @@ export type MultipleQuestion = {
   answer_values: number[];
 };
 
-export type WrittenQuestion = {
+export type WrittenQuiz = {
   id: string;
   type: "written";
   quiz_body: string;
   answer_value: string;
 };
 
-export type Quiz = AlternativeQuestion | MultipleQuestion | WrittenQuestion;
+export type Quiz = AlternativeQuiz | MultipleQuiz | WrittenQuiz;
 export type Answer = number | number[] | string;
