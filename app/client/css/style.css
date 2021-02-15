@@ -31,3 +31,15 @@ input[type="text"] {
   padding: 0.5em;
   font-size: 26px;
 }
+
+#score,
+#btnPost {
+  display: none;
+}
+.isStart #btnStart {
+  display: none;
+}
+.isStart #score,
+.isStart #btnPost {
+  display: block;
+}

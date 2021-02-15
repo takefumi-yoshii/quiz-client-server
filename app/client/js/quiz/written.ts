@@ -3,10 +3,13 @@ import { postAnswer } from "../fetchers";
 // ______________________________________________________
 //
 export function setQuiz(data: WrittenQuiz) {
-  document.getElementById(
-    "quiz"
-  )!.innerHTML = `${data.quiz_body}（筆記回答「？」に該当する答えを記入）`;
-  document.getElementById("choices")!.innerHTML = `
+  const $quiz = document.getElementById("quiz");
+  const $choices = document.getElementById("choices");
+  if (!$quiz || !$choices) {
+    throw new Error("Not found #quiz or #choices");
+  }
+  $quiz.innerHTML = `${data.quiz_body}（筆記回答「？」に該当する答えを記入）`;
+  $choices.innerHTML = `
   <li>
     <input
       type="text"

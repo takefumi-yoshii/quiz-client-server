@@ -10,7 +10,7 @@ let currentQuizId: string | null = null;
 let currentQuizType: QuizType | null = null;
 // ______________________________________________________
 //
-async function getQuiz() {
+async function startQuiz() {
   const data = await fetchQuiz();
   if (data.error) return alert(data.error);
   if (!data.quiz) return alert("クイズが取得できませんでした");
@@ -28,21 +28,44 @@ async function getQuiz() {
 }
 // ______________________________________________________
 //
-async function checkAnswer(event: Event) {
-  event.preventDefault();
+async function checkAnswer() {
   if (currentQuizId === null) {
     return alert("クイズを取得してください");
   }
   switch (currentQuizType) {
     case "alternative":
-      return updateScore(await alternative.checkAnswer(currentQuizId));
+      updateScore(await alternative.checkAnswer(currentQuizId));
+      break;
     case "multiple":
-      return updateScore(await multiple.checkAnswer(currentQuizId));
+      updateScore(await multiple.checkAnswer(currentQuizId));
+      break;
     case "written":
-      return updateScore(await written.checkAnswer(currentQuizId));
+      updateScore(await written.checkAnswer(currentQuizId));
+      break;
   }
+  startQuiz();
 }
 // ______________________________________________________
 //
-document.getElementById("btn")!.addEventListener("click", getQuiz);
-document.getElementById("form")!.addEventListener("submit", checkAnswer);
+function handleClickStart() {
+  const $container = document.getElementById("container");
+  if (!$container) {
+    throw new Error("Not found #container");
+  }
+  $container.classList.add("isStart");
+  startQuiz();
+}
+function handleSubmitForm(event: Event) {
+  event.preventDefault();
+  checkAnswer();
+}
+function main() {
+  const $btnStart = document.getElementById("btnStart");
+  const $form = document.getElementById("form");
+  if (!$btnStart || !$form) {
+    throw new Error("Not found #btnStart or #form");
+  }
+  $btnStart.addEventListener("click", handleClickStart);
+  $form.addEventListener("submit", handleSubmitForm);
+}
+window.addEventListener("load", main);

@@ -3,8 +3,13 @@ import { postAnswer } from "../fetchers";
 // ______________________________________________________
 //
 export function setQuiz(data: MultipleQuiz) {
-  document.getElementById("quiz")!.innerHTML = `${data.quiz_body}（複数回答）`;
-  document.getElementById("choices")!.innerHTML = data.quiz_choices
+  const $quiz = document.getElementById("quiz");
+  const $choices = document.getElementById("choices");
+  if (!$quiz || !$choices) {
+    throw new Error("Not found #quiz or #choices");
+  }
+  $quiz.innerHTML = `${data.quiz_body}（複数回答）`;
+  $choices.innerHTML = data.quiz_choices
     .map(
       (choice) =>
         `<li>

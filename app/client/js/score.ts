@@ -6,8 +6,13 @@ let correctCount = 0;
 // ______________________________________________________
 //
 function setScore(tryCount: number, correctCount: number) {
-  document.getElementById("tryCount")!.innerHTML = `${tryCount}`;
-  document.getElementById("correctCount")!.innerHTML = `${correctCount}`;
+  const $tryCount = document.getElementById("tryCount");
+  const $correctCount = document.getElementById("correctCount");
+  if (!$tryCount || !$correctCount) {
+    throw new Error("Not found #tryCount or #correctCount");
+  }
+  $tryCount.innerHTML = `${tryCount}`;
+  $correctCount.innerHTML = `${correctCount}`;
 }
 // ______________________________________________________
 //

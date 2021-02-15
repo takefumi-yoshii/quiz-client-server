@@ -6,16 +6,19 @@
     <link rel="stylesheet" media="all" href="./css/style.css" />
   </head>
   <body>
-    <h1># TypeScript Quiz</h1>
-    <button id="btn">fetch Quiz</button>
-    <hr />
-    <form id="form">
-      <p id="quiz"></p>
-      <ul id="choices"></ul>
-      <button id="post">Post Answer</button>
-    </form>
-    <hr />
-    <p>成績：<span id="correctCount"></span>/<span id="tryCount"></span></p>
+    <div id="container">
+      <h1># TypeScript Quiz</h1>
+      <button id="btnStart">Start Quiz</button>
+      <p id="score">
+        成績：<span id="correctCount"></span>/<span id="tryCount"></span>
+      </p>
+      <hr />
+      <form id="form">
+        <p id="quiz"></p>
+        <ul id="choices"></ul>
+        <button id="btnPost">Post Answer</button>
+      </form>
+    </div>
     <script type="text/javascript" src="./js/main.ts"></script>
   </body>
 </html>
